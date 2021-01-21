@@ -1,3 +1,4 @@
+import 'package:bookshelf_app/state/auth_state.dart';
 import 'package:bookshelf_app/views/book_details.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshelf_app/data/data.dart';
@@ -5,12 +6,17 @@ import 'package:bookshelf_app/models/book_model.dart';
 import 'package:bookshelf_app/models/single_book_model.dart';
 import 'package:bookshelf_app/resource/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'login_page.dart' as login;
 import 'webview.dart' as web;
 
 String slectedCategorie = "All";
 
 class MyHomePage extends StatefulWidget {
+  final User user;
+
+  const MyHomePage({Key key, this.user}) : super(key: key);
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -36,253 +42,259 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: ListView(children: [
-      Container(
-        color: Color(0xffF2F5F9),
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Hi there !",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
-                    ),
-                    Spacer(),
-                    // Image.asset(
-                    //   "assets/search.png",
-                    // ),
-                    SizedBox(
-                      width: 14,
-                    ),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage("assets/userid.jpg"),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Expanded(
-                      flex: 1,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => web.WebPage(),
-                              ));
-                        },
-                        child: Container(
-                          height: 94.0,
-                          width: MediaQuery.of(context).size.width * 0.43,
-                          child: Center(
-                              child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              children: [
-                                Icon(Icons.play_circle_fill_outlined,
-                                    size: 40.0, color: Colors.white),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Text(
-                                  "Video courses",
-                                  style: TextStyle(
-                                      fontSize: 17.0, color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          )),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [
-                                  Color(0xff6DC8F3),
-                                  Color(0xff73A1F9),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xff73A1F9),
-                                blurRadius: 12,
-                                offset: Offset(0, 6),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
+    return Consumer(
+      builder: (context, watch, child) {
+        //watch see the value of state if state value is change this watch rebuild
+        final user = watch(userProvider).state;
+        return Scaffold(
+            body: ListView(children: [
+          Container(
+            color: Color(0xffF2F5F9),
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "${user.displayName}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 24),
                         ),
-                      ),
+                        Spacer(),
+                        // Image.asset(
+                        //   "assets/search.png",
+                        // ),
+                        SizedBox(
+                          width: 14,
+                        ),
+                        CircleAvatar(
+                          radius: 20,
+                          backgroundImage: AssetImage("assets/userid.jpg"),
+                        )
+                      ],
                     ),
                   ),
                   SizedBox(
-                    width: 3,
+                    height: 25,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 94.0,
-                        width: MediaQuery.of(context).size.width * 0.43,
-                        child: Center(
-                            child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Row(
-                            children: [
-                              Image(
-                                image: AssetImage("assets/careerPath.png"),
-                                width: 40.0,
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Expanded(
+                          flex: 1,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => web.WebPage(),
+                                  ));
+                            },
+                            child: Container(
+                              height: 94.0,
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: Center(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.play_circle_fill_outlined,
+                                        size: 40.0, color: Colors.white),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "Video courses",
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xff6DC8F3),
+                                      Color(0xff73A1F9),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xff73A1F9),
+                                    blurRadius: 12,
+                                    offset: Offset(0, 6),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                "Career Path",
-                                style: TextStyle(
-                                    fontSize: 17.0, color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        )),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                Color(0xffFABF37),
-                                Color(0xffFB7D21),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xffFB7D21),
-                              blurRadius: 12,
-                              offset: Offset(0, 6),
                             ),
-                          ],
-                          borderRadius: BorderRadius.circular(15.0),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Expanded(
+                          flex: 1,
+                          child: Container(
+                            height: 94.0,
+                            width: MediaQuery.of(context).size.width * 0.43,
+                            child: Center(
+                                child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  Image(
+                                    image: AssetImage("assets/careerPath.png"),
+                                    width: 40.0,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    "Career Path",
+                                    style: TextStyle(
+                                        fontSize: 17.0, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            )),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xffFABF37),
+                                    Color(0xffFB7D21),
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xffFB7D21),
+                                  blurRadius: 12,
+                                  offset: Offset(0, 6),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    height: 40,
+                    child: ListView.builder(
+                        itemCount: categories.length,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return CategorieTile(
+                            text: categories[index],
+                            isSelected: slectedCategorie == categories[index],
+                          );
+                        }),
+                  ),
+                  Container(
+                    height: 200,
+                    child: ListView.builder(
+                        itemCount: books.length,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return BooksTile(
+                            imgAssetPath: books[index].imgAssetPath,
+                            rating: books[index].rating,
+                            title: books[index].title,
+                            description: books[index].description,
+                            categorie: books[index].categorie,
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+
+                  //Single Book Tile
+                  Text(
+                    "Cisco Books",
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    height: 250,
+                    child: ListView.builder(
+                        itemCount: singleeBooks.length,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return SingleBookTile(
+                            title: singleeBooks[index].title,
+                            categorie: singleeBooks[index].categorie,
+                            imgAssetPath: singleeBooks[index].imgAssetPath,
+                          );
+                        }),
+                  ),
+
+                  Text(
+                    "CompTIA Books",
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    height: 250,
+                    child: ListView.builder(
+                        itemCount: singleeBooks2.length,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return SingleBookTile(
+                            title: singleeBooks2[index].title,
+                            categorie: singleeBooks2[index].categorie,
+                            imgAssetPath: singleeBooks2[index].imgAssetPath,
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 16,
                   ),
                 ],
               ),
-
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                height: 40,
-                child: ListView.builder(
-                    itemCount: categories.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return CategorieTile(
-                        text: categories[index],
-                        isSelected: slectedCategorie == categories[index],
-                      );
-                    }),
-              ),
-              Container(
-                height: 200,
-                child: ListView.builder(
-                    itemCount: books.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return BooksTile(
-                        imgAssetPath: books[index].imgAssetPath,
-                        rating: books[index].rating,
-                        title: books[index].title,
-                        description: books[index].description,
-                        categorie: books[index].categorie,
-                      );
-                    }),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-
-              //Single Book Tile
-              Text(
-                "Cisco Books",
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: 250,
-                child: ListView.builder(
-                    itemCount: singleeBooks.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return SingleBookTile(
-                        title: singleeBooks[index].title,
-                        categorie: singleeBooks[index].categorie,
-                        imgAssetPath: singleeBooks[index].imgAssetPath,
-                      );
-                    }),
-              ),
-
-              Text(
-                "CompTIA Books",
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Container(
-                height: 250,
-                child: ListView.builder(
-                    itemCount: singleeBooks2.length,
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return SingleBookTile(
-                        title: singleeBooks2[index].title,
-                        categorie: singleeBooks2[index].categorie,
-                        imgAssetPath: singleeBooks2[index].imgAssetPath,
-                      );
-                    }),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    ]));
+        ]));
+      },
+    );
   }
 }
 

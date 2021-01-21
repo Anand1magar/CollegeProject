@@ -3,48 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:bookshelf_app/models/intro_model.dart';
 import 'package:bookshelf_app/views/introPage.dart' as intro;
 import 'login_page.dart' as sigin;
-import 'start.dart' as start;
 
 class IntroPage extends StatefulWidget {
+  final User user;
+
+  const IntroPage({Key key, this.user}) : super(key: key);
+
   @override
   _IntroPageState createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  User user;
-  bool isloggedin = false;
-  checkAuthentification() async {
-    _auth.authStateChanges().listen((user) {
-      if (user == null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => start.StartPage()));
-      }
-    });
-  }
-
-  getUser() async {
-    //Grabing user from firebase as user have enter email and passwd
-    User firebaseUser = _auth.currentUser;
-    await firebaseUser
-        ?.reload(); //if u skip this reload part u will get null as a user
-    firebaseUser = _auth.currentUser;
-
-    if (firebaseUser != null) {
-      setState(() {
-        this.user = firebaseUser;
-        this.isloggedin = true;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.checkAuthentification();
-    this.getUser();
-  }
-
   List<StepModel> list = StepModel.list;
   var _controller = PageController();
   var initialPage = 0;
@@ -97,7 +66,7 @@ class _IntroPageState extends State<IntroPage> {
           ),
           FlatButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => sigin.LoginPage(),
