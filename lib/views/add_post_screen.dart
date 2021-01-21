@@ -127,7 +127,7 @@ class _AddPostState extends State<AddPost> {
                         feed); //Context ,feed are the value which is send to previous screen
                   }
                 },
-                color: Colors.blue,
+                color: Colors.greenAccent,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0)),
                 child: Text(
