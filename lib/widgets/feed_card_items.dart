@@ -52,8 +52,8 @@ class _PostItemState extends State<PostItem> {
             children: [
               CircleAvatar(
                 radius: 20.0,
-                backgroundImage: NetworkImage(widget.feed.profileImage ??
-                    ''), // ?? yadi null aayo vany provide ""
+                backgroundImage: NetworkImage(widget.feed.profileImage ?? ''),
+                // ?? yadi null aayo vany provide ""
               ),
               SizedBox(width: 10.0),
               Column(

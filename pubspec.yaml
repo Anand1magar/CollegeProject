@@ -27,13 +27,13 @@ dependencies:
   day_night_switcher: ^0.1.1+1  #Switch in flutter 
   flare_flutter: ^2.0.6
   flutter_datetime_picker: ^1.4.0
-  firebase_core: ^0.7.0 
+  firebase_core: 
   google_sign_in: ^4.5.6
   firebase_auth: ^0.18.4+1
   flutter_easyloading: ^2.2.2
   webview_flutter: ^1.0.7 
-  flutter_riverpod: ^0.12.2
-  cloud_firestore: ^0.16.0
+  flutter_riverpod: 
+  cloud_firestore:  
   
 
   

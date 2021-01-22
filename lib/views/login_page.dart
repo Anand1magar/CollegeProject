@@ -7,6 +7,7 @@ import 'home.dart' as home;
 import 'signup_page.dart' as signup;
 import 'package:bookshelf_app/service/auth_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import "bottom_nav_screen.dart" as nav;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -236,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                                     //assigning user value to userProvider form /lib/state/aut_state.dart
                                     Navigator.pushReplacement(context,
                                         MaterialPageRoute(builder: (context) {
-                                      return home.MyHomePage();
+                                      return nav.BottomNavScreen();
                                     }));
                                   } else {
                                     print("error logging in");

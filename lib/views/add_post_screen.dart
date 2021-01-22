@@ -1,5 +1,8 @@
 import 'package:bookshelf_app/models/feed.dart';
+import 'package:bookshelf_app/state/feed_state.dart';
 import 'package:flutter/material.dart';
+import 'package:bookshelf_app/service/post_services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddPost extends StatefulWidget {
   @override
@@ -8,12 +11,32 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
   GlobalKey<FormState> _formKey = GlobalKey();
+  bool isLoading = false;
   Feed feed;
 
   @override
   void initState() {
     super.initState();
     feed = Feed(); //Creating new feed
+  }
+
+  onPostAdd() async {
+    if (_formKey.currentState.validate()) {
+      // It will run all the validator() which is used in all TextFormField
+      print("Data validate");
+      _formKey.currentState.save();
+      //it will run all the onSaved() inside TextFormField
+      try {
+        context.read(isFeedSavingProvider).state = true;
+        await PostServices.addPost(feed);
+        Navigator.pop(context, feed);
+        //Context ,feed are the value which is send to previous screen
+      } catch (e) {
+        print(e);
+      } finally {
+        context.read(isFeedSavingProvider).state = false;
+      }
+    }
   }
 
   @override
@@ -113,26 +136,25 @@ class _AddPostState extends State<AddPost> {
               SizedBox(
                 height: 35,
               ),
-              RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    // It will run all the validator() which is used in all TextFormField
-                    print("Data validate");
-
-                    _formKey.currentState.save();
-                    //it will run all the onSaved() inside TextFormField
-
-                    Navigator.pop(context,
-                        feed); //Context ,feed are the value which is send to previous screen
-                  }
-                },
-                color: Colors.greenAccent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white),
+              Center(
+                child: Consumer(
+                  //watch watching the state of that provider
+                  builder: (context, watch, child) {
+                    var isLoading = watch(isFeedSavingProvider).state;
+                    isLoading
+                        ? CircularProgressIndicator()
+                        : RaisedButton(
+                            padding: EdgeInsets.symmetric(vertical: 15.0),
+                            onPressed: this.onPostAdd,
+                            color: Colors.greenAccent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0)),
+                            child: Text(
+                              "Save",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          );
+                  },
                 ),
               )
             ],
