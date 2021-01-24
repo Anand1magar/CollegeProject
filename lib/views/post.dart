@@ -9,13 +9,13 @@ class Post extends StatefulWidget {
 }
 
 class _PostState extends State<Post> {
-  List<Feed> allfeeds;
+  var itemList;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    allfeeds = getFeeds();
+    itemList = getFeeds();
   }
 
   @override
@@ -24,16 +24,16 @@ class _PostState extends State<Post> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           //async => certain area or part will update when data came
-          Feed newFeed = await Navigator.push(
+          var feedItem = await Navigator.push(
               context, MaterialPageRoute(builder: (_) => AddPost()));
           //AddPost() lay j data falxa that will be stored in  newFeed Variable
           print(
               "await keyword wait for the promissing value and then this line will execuated");
           setState(() {
-            allfeeds.add(newFeed);
+            itemList.add(feedItem);
           });
           print(
-              "Checked data is stored or not in newFeed : ${newFeed.uploadedBy}"); //
+              "Checked data is stored or not in newFeed : ${feedItem.uploadedBy}"); //
           // print("This print will not run because await wait for data to come in newFeed");
         },
         child: Icon(Icons.add),
@@ -57,10 +57,10 @@ class _PostState extends State<Post> {
         backgroundColor: Colors.white,
       ),
       body: ListView.builder(
-        itemCount: allfeeds.length,
+        itemCount: itemList.length, //4
         itemBuilder: (context, index) {
           return PostItem(
-            feed: allfeeds[index],
+            feed: itemList[index],
           );
         },
         padding: EdgeInsets.only(top: 10),

@@ -1,104 +1,96 @@
+//Done
+
 class Feed {
+  String imageUrl;
+  String caption;
   String uploadedBy;
-  String subTitle;
-  String profileImage;
-  String postImage;
-  String captions;
-  String discription;
   bool like;
+  int commentsCount;
+  String uploaderImageUrl;
+  String timeAgo;
   bool save;
   bool sponsored;
-  int commentCount;
-  String timeAgo;
-  bool sendButton;
+  int postDate;
+  String description;
+  String uid;
 
-  Feed({
-    this.uploadedBy,
-    this.subTitle,
-    this.profileImage,
-    this.postImage,
-    this.captions,
-    this.discription,
-    this.like = false,
-    this.save = false,
-    this.sponsored = false, //if api don't have this value
-    this.commentCount = 12,
-    this.timeAgo,
-    this.sendButton,
-  });
+  Feed(
+      {this.imageUrl,
+      this.caption,
+      this.uploadedBy,
+      this.like = false,
+      this.commentsCount = 3,
+      this.uploaderImageUrl,
+      this.timeAgo,
+      this.save = false,
+      this.sponsored = false,
+      this.postDate,
+      this.description});
 }
 
 List<Feed> getFeeds() {
-  List<Feed> allFeed = [];
-
-  Feed feed1 = Feed(
-    uploadedBy: "TestPerson",
-    subTitle: "Admin",
-    profileImage:
-        "https://i2.wp.com/futureiot.tech/wp-content/themes/jnews-child/avatar.png?ssl=1",
-    postImage:
-        "https://images.unsplash.com/photo-1601517279624-df15d34c9170?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
-    captions: "This is the caption 1",
-    discription: "This is the discription",
-    like: false,
-    save: false,
-    commentCount: 10,
-    timeAgo: "2 minutes ago",
-    sendButton: false,
-  );
-
-  Feed feed2 = Feed(
-    uploadedBy: "Test Person 2",
-    subTitle: "Admin",
-    profileImage:
-        "https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png",
-    postImage:
-        "https://images.unsplash.com/photo-1481882563558-a1b9f5f7744a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80",
-    captions: "This is caption 2",
-    discription: "This is discription",
-    like: false,
-    save: false,
-    commentCount: 5,
-    timeAgo: "3 minutes ago",
-    sendButton: false,
-  );
-
-  Feed feed3 = Feed(
-    uploadedBy: "Test Person 2",
-    subTitle: "Admin",
-    profileImage:
-        "https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png",
-    postImage:
-        "https://images.unsplash.com/photo-1532274927807-db2758968c3a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=742&q=80",
-    captions: "This is caption 2",
-    discription: "This is discription",
-    like: false,
-    save: false,
-    commentCount: 5,
-    timeAgo: "1  minutes ago",
-    sendButton: false,
-  );
-
-  Feed feed4 = Feed(
-    uploadedBy: "Test Person 2",
-    subTitle: "Admin",
-    profileImage:
-        "https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png",
-    postImage:
-        "https://images.unsplash.com/photo-1481882563558-a1b9f5f7744a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80",
-    captions: "This is caption 2",
-    discription: "This is discription",
-    like: false,
-    save: false,
-    commentCount: 5,
-    timeAgo: "5 minutes ago",
-    sendButton: false,
-  );
-
-  allFeed.add(feed1);
-  allFeed.add(feed2);
-  allFeed.add(feed3);
-  allFeed.add(feed4);
-
-  return allFeed;
+  return [
+    Feed(
+      imageUrl:
+          'https://images.unsplash.com/photo-1601517279624-df15d34c9170?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+      caption: 'Have a plant at your desk',
+      uploadedBy: 'Ramesh Giri',
+      like: false,
+      commentsCount: 2,
+      uploaderImageUrl:
+          'https://i2.wp.com/futureiot.tech/wp-content/themes/jnews-child/avatar.png?ssl=1',
+      timeAgo: '2 minutes ago',
+      save: false,
+      sponsored: true,
+      postDate: DateTime.now().millisecondsSinceEpoch,
+      description:
+          'Having a plant at your work desk can be really helpful. I don\'t know why though',
+    ),
+    Feed(
+        imageUrl:
+            'https://images.unsplash.com/photo-1481882563558-a1b9f5f7744a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80',
+        caption: 'Eat your breakfast on time',
+        uploadedBy: 'Ted Mosby',
+        like: false,
+        commentsCount: 0,
+        uploaderImageUrl:
+            'https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png',
+        timeAgo: '2 minutes ago',
+        save: false,
+        sponsored: false,
+        postDate: DateTime.now().millisecondsSinceEpoch,
+        description:
+            'You should eat your breakfast before 30 minutes, after you wake up.'),
+    Feed(
+      imageUrl:
+          'https://images.unsplash.com/photo-1532274927807-db2758968c3a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=742&q=80',
+      caption: 'Have a plant at your desk',
+      uploadedBy: 'Barney Stinson',
+      like: false,
+      commentsCount: 8,
+      uploaderImageUrl:
+          'https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png',
+      timeAgo: '2 minutes ago',
+      save: false,
+      sponsored: true,
+      postDate: DateTime.now().millisecondsSinceEpoch,
+      description:
+          'Having a plant at your work desk can be really helpful. I don\'t know why though',
+    ),
+    Feed(
+        imageUrl:
+            'https://images.unsplash.com/photo-1481882563558-a1b9f5f7744a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80',
+        caption: 'Eat your breakfast on time',
+        uploadedBy: 'Ramesh Giri',
+        like: false,
+        commentsCount: 2,
+        uploaderImageUrl:
+            'https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png',
+        timeAgo: '2 minutes ago',
+        save: false,
+        sponsored: true,
+        postDate: DateTime.now().millisecondsSinceEpoch,
+        description:
+            'Y0u should eat your breakfast before 30 minutes, after you wake up.'),
+  ];
 }

@@ -60,6 +60,8 @@ flutter:
      - assets/icons/facebook.png
      - assets/icons/search.png
      - assets/icons/twitter.png
+     - assets/images/
+     
 
 
   #  - images/a_dot_ham.jpeg

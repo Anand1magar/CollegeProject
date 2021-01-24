@@ -17,10 +17,9 @@ class _PostItemState extends State<PostItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    sendButton = widget.feed.sendButton;
-    save = widget.feed.save;
-    like = widget.feed.like;
-    comment = widget.feed.commentCount;
+    like = widget.feed.like; //false
+    save = widget.feed.save; //false;
+    sendButton = false;
   }
 
   @override
@@ -52,7 +51,8 @@ class _PostItemState extends State<PostItem> {
             children: [
               CircleAvatar(
                 radius: 20.0,
-                backgroundImage: NetworkImage(widget.feed.profileImage ?? ''),
+                backgroundImage:
+                    NetworkImage(widget.feed.uploaderImageUrl ?? ''),
                 // ?? yadi null aayo vany provide ""
               ),
               SizedBox(width: 10.0),
@@ -61,8 +61,10 @@ class _PostItemState extends State<PostItem> {
                 children: [
                   Text(widget.feed.uploadedBy,
                       style: TextStyle(color: Colors.white)),
-                  Text(widget.feed.subTitle,
-                      style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                  widget.feed.sponsored
+                      ? Text("Sponsored",
+                          style: TextStyle(color: Colors.white, fontSize: 10.0))
+                      : SizedBox()
                 ],
               ),
             ],
@@ -81,7 +83,7 @@ class _PostItemState extends State<PostItem> {
       width: MediaQuery.of(context).size.width,
       height: 300.0,
       child: Image.network(
-        widget.feed.postImage ?? '',
+        widget.feed.imageUrl ?? '',
         // height: 200.0,
         // width: MediaQuery.of(context)
         //     .size
@@ -158,7 +160,7 @@ class _PostItemState extends State<PostItem> {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
-                    text: '${widget.feed.captions}',
+                    text: '${widget.feed.caption}',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w300),
                   ),
@@ -186,7 +188,8 @@ class _PostItemState extends State<PostItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(widget.feed.profileImage ?? ''),
+                backgroundImage:
+                    NetworkImage(widget.feed.uploaderImageUrl ?? ''),
               ),
               SizedBox(width: 12.0),
               Expanded(

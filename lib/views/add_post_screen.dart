@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bookshelf_app/service/post_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+//Done
 class AddPost extends StatefulWidget {
   @override
   _AddPostState createState() => _AddPostState();
@@ -26,15 +27,13 @@ class _AddPostState extends State<AddPost> {
       print("Data validate");
       _formKey.currentState.save();
       //it will run all the onSaved() inside TextFormField
-      try {
-        context.read(isFeedSavingProvider).state = true;
-        await PostServices.addPost(feed);
-        Navigator.pop(context, feed);
-        //Context ,feed are the value which is send to previous screen
-      } catch (e) {
-        print(e);
-      } finally {
-        context.read(isFeedSavingProvider).state = false;
+      var feedProvider = context.read(addFeedProvider);
+      await feedProvider.addFeed(feed);
+
+      if (feedProvider.error != null) {
+        //show error
+      } else {
+        Navigator.pop(context);
       }
     }
   }
@@ -55,108 +54,86 @@ class _AddPostState extends State<AddPost> {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             children: [
               Text(
-                "Full name",
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
+                'Image Url',
+                style: TextStyle(color: Colors.white),
               ),
               TextFormField(
-                onSaved: (value) => feed.uploadedBy = value,
+                onSaved: (value) => feed.imageUrl = value,
                 validator: (value) {
                   if (value.isEmpty) {
-                    return "Please enter your name";
+                    return 'This field cannot be empty';
                   } else {
                     return null;
                   }
                 },
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: "Enter your full name",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                "Caption",
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
-              TextFormField(
-                onSaved: (value) => feed.captions = value,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter your caption";
-                  } else {
-                    return null;
-                  }
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: "Enter the caption",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                "Discription",
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
-              TextFormField(
-                onSaved: (value) => feed.discription = value,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter your discription";
-                  } else {
-                    return null;
-                  }
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: "Enter the Discription",
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                "Image  URL",
-                style: TextStyle(color: Colors.white, fontSize: 16.0),
-              ),
-              TextFormField(
-                onSaved: (value) => feed.postImage = value,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter your name";
-                  } else {
-                    return null;
-                  }
-                },
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: "Enter the image URL",
+                  hintText: "Add Image Url",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
               ),
               SizedBox(
-                height: 35,
+                height: 10.0,
               ),
-              Center(
-                child: Consumer(
-                  //watch watching the state of that provider
-                  builder: (context, watch, child) {
-                    var isLoading = watch(isFeedSavingProvider).state;
-                    isLoading
-                        ? CircularProgressIndicator()
-                        : RaisedButton(
-                            padding: EdgeInsets.symmetric(vertical: 15.0),
-                            onPressed: this.onPostAdd,
-                            color: Colors.greenAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Text(
-                              "Save",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          );
-                  },
+              Text(
+                'Caption',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextFormField(
+                onSaved: (value) => feed.caption = value,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'This field cannot be empty';
+                  } else {
+                    return null;
+                  }
+                },
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: "Caption",
+                  hintStyle: TextStyle(color: Colors.grey),
                 ),
-              )
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'Description',
+                style: TextStyle(color: Colors.white),
+              ),
+              TextFormField(
+                onSaved: (value) => feed.description = value,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'This field cannot be empty';
+                  } else {
+                    return null;
+                  }
+                },
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: "Description here",
+                  hintStyle: TextStyle(color: Colors.grey),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Center(child: Consumer(
+                builder: (context, watch, child) {
+                  var isLoading = watch(addFeedProvider).isLoading;
+                  return isLoading
+                      ? CircularProgressIndicator()
+                      : RaisedButton(
+                          onPressed: this.onPostAdd,
+                          color: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Text('Save'),
+                        );
+                },
+              ))
             ],
           ),
         ));
