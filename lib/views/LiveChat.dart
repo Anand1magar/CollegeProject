@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat_screen.dart';
+import 'package:bookshelf_app/models/message_model.dart';
 
 class LiveChat extends StatefulWidget {
   @override

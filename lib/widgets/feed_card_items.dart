@@ -60,10 +60,10 @@ class _PostItemState extends State<PostItem> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(widget.feed.uploadedBy,
-                      style: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.black)),
                   widget.feed.sponsored
                       ? Text("Sponsored",
-                          style: TextStyle(color: Colors.white, fontSize: 10.0))
+                          style: TextStyle(color: Colors.black, fontSize: 10.0))
                       : SizedBox()
                 ],
               ),
@@ -71,7 +71,7 @@ class _PostItemState extends State<PostItem> {
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.more_vert, color: Colors.white),
+            icon: Icon(Icons.more_vert, color: Colors.black),
           )
         ],
       ),
@@ -104,16 +104,16 @@ class _PostItemState extends State<PostItem> {
             child: Row(
               children: [
                 tapIcon(like ? Icons.favorite : Icons.favorite_border,
-                    toggleLike, like ? Colors.red : Colors.white),
+                    toggleLike, like ? Colors.red : Colors.black),
                 SizedBox(width: 20.0),
-                tapIcon(Icons.comment, () {}, Colors.white),
+                tapIcon(Icons.comment, () {}, Colors.black),
                 SizedBox(width: 20.0),
-                tapIcon(Icons.send, () {}, Colors.white),
+                tapIcon(Icons.send, () {}, Colors.black),
               ],
             ),
           ),
           tapIcon(save ? Icons.bookmark : Icons.bookmark_border_outlined,
-              toggleSave, Colors.white),
+              toggleSave, Colors.black),
         ],
       ),
     );
@@ -157,12 +157,12 @@ class _PostItemState extends State<PostItem> {
             text: TextSpan(
                 text: widget.feed.uploadedBy,
                 style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 children: [
                   TextSpan(
                     text: '${widget.feed.caption}',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w300),
+                        color: Colors.black, fontWeight: FontWeight.w300),
                   ),
                 ]),
           ),
@@ -210,19 +210,19 @@ class _PostItemState extends State<PostItem> {
                       border: InputBorder.none,
                       hintText: "Add a comment",
                       hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.4))),
-                  style: TextStyle(color: Colors.white),
+                          TextStyle(color: Colors.black.withOpacity(0.4))),
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
               sendButton
-                  ? tapIcon(Icons.send, toggleSend(), Colors.white)
+                  ? tapIcon(Icons.send, toggleSend(), Colors.black)
                   : SizedBox(),
             ],
           ),
           Text(
             '${widget.feed.timeAgo}',
             style:
-                TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 14.0),
+                TextStyle(color: Colors.black.withOpacity(0.5), fontSize: 14.0),
           ),
         ],
       ),

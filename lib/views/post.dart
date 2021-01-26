@@ -38,7 +38,7 @@ class _PostState extends State<Post> {
         },
         child: Icon(Icons.add),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         actions: [
           Padding(

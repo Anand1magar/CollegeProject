@@ -1,7 +1,7 @@
+import 'package:bookshelf_app/views/LiveChat2.dart' as chat;
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'home.dart' as home;
 import 'noteBook.dart' as noteBook;
 import 'login_page.dart' as signin;
@@ -27,7 +27,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     home.MyHomePage(),
     post.Post(),
     noteBook.NoteBook(),
-    chat.LiveChat(),
+    chat.LiveChat2(),
     bookMark.BookMark(),
   ];
   int _currentIndex = 0;

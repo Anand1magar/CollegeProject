@@ -1,5 +1,6 @@
 import 'package:bookshelf_app/state/auth_state.dart';
 import 'package:bookshelf_app/views/book_details.dart';
+import 'package:bookshelf_app/views/careerPath.dart';
 import 'package:flutter/material.dart';
 import 'package:bookshelf_app/data/data.dart';
 import 'package:bookshelf_app/models/book_model.dart';
@@ -148,45 +149,54 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Expanded(
                           flex: 1,
-                          child: Container(
-                            height: 94.0,
-                            width: MediaQuery.of(context).size.width * 0.43,
-                            child: Center(
-                                child: Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Row(
-                                children: [
-                                  Image(
-                                    image: AssetImage("assets/careerPath.png"),
-                                    width: 40.0,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    "Career Path",
-                                    style: TextStyle(
-                                        fontSize: 17.0, color: Colors.white),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CareerPath()));
+                            },
+                            child: Container(
+                              height: 94.0,
+                              width: MediaQuery.of(context).size.width * 0.43,
+                              child: Center(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: [
+                                    Image(
+                                      image:
+                                          AssetImage("assets/careerPath.png"),
+                                      width: 40.0,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "Career Path",
+                                      style: TextStyle(
+                                          fontSize: 17.0, color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xffFABF37),
+                                      Color(0xffFB7D21),
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xffFB7D21),
+                                    blurRadius: 12,
+                                    offset: Offset(0, 6),
                                   ),
                                 ],
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                            )),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xffFABF37),
-                                    Color(0xffFB7D21),
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xffFB7D21),
-                                  blurRadius: 12,
-                                  offset: Offset(0, 6),
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(15.0),
                             ),
                           ),
                         ),

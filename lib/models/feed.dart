@@ -63,13 +63,13 @@ List<Feed> getFeeds() {
             'You should eat your breakfast before 30 minutes, after you wake up.'),
     Feed(
       imageUrl:
-          'https://images.unsplash.com/photo-1532274927807-db2758968c3a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=742&q=80',
+          'https://images.unsplash.com/photo-1581250190370-6368e32dbcb5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=749&q=80',
       caption: 'Have a plant at your desk',
       uploadedBy: 'Barney Stinson',
       like: false,
       commentsCount: 8,
       uploaderImageUrl:
-          'https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png',
+          'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxMjA3fDB8MXxzZWFyY2h8MXx8cGVyc29ufHwwfHx8&ixlib=rb-1.2.1&q=80&w=1080',
       timeAgo: '2 minutes ago',
       save: false,
       sponsored: true,
@@ -79,13 +79,13 @@ List<Feed> getFeeds() {
     ),
     Feed(
         imageUrl:
-            'https://images.unsplash.com/photo-1481882563558-a1b9f5f7744a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80',
+            'https://images.unsplash.com/photo-1599450400952-a65f33138bbf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         caption: 'Eat your breakfast on time',
         uploadedBy: 'Ramesh Giri',
         like: false,
         commentsCount: 2,
         uploaderImageUrl:
-            'https://www.proquoai.com/hubfs/Daniel%20Sotudeh%20Green%20circular%20avatar.png',
+            'https://image.shutterstock.com/image-photo/image-260nw-640011838.jpg',
         timeAgo: '2 minutes ago',
         save: false,
         sponsored: true,

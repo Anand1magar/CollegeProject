@@ -7,7 +7,7 @@ class StepModel {
   static List<StepModel> list = [
     StepModel(
       id: 1,
-      text: "Browse the menu\nand order directly from\nthe application",
+      text: "ICT Guide Applicaiton \nis for all IT student\nall over the nepal",
     ),
     StepModel(
       id: 2,
